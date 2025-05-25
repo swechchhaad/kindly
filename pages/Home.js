@@ -17,7 +17,7 @@ export default function Home() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Hi Swechchha 💛</Text>
+      <Text style={styles.title}>Hi User 💛</Text>
       <Text style={styles.subtitle}>How are you feeling today?</Text>
 
       <View style={styles.moodContainer}>
