@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ScrollView, View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Home() {
   const [selectedMood, setSelectedMood] = useState(null);
@@ -15,55 +16,57 @@ export default function Home() {
     { emoji: '🤍', label: 'Neutral' },
   ];
 
-  return (
+const navigation = useNavigation();
+
+return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Hi User 💛</Text>
-      <Text style={styles.subtitle}>How are you feeling today?</Text>
+        <Text style={styles.title}>Hi User 💛</Text>
+        <Text style={styles.subtitle}>How are you feeling today?</Text>
 
-      <View style={styles.moodContainer}>
-        {moods.map((mood, index) => (
-          <TouchableOpacity
-            key={index}
-            style={[
-              styles.moodButton,
-              selectedMood === mood.label && styles.selectedMood,
-            ]}
-            onPress={() => setSelectedMood(mood.label)}
-          >
-            <Text style={styles.emoji}>{mood.emoji}</Text>
-            <Text style={styles.label}>{mood.label}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+        <View style={styles.moodContainer}>
+            {moods.map((mood, index) => (
+                <TouchableOpacity
+                    key={index}
+                    style={[
+                        styles.moodButton,
+                        selectedMood === mood.label && styles.selectedMood,
+                    ]}
+                    onPress={() => setSelectedMood(mood.label)}
+                >
+                    <Text style={styles.emoji}>{mood.emoji}</Text>
+                    <Text style={styles.label}>{mood.label}</Text>
+                </TouchableOpacity>
+            ))}
+        </View>
 
-      {selectedMood && (
-        <>
-          <Text style={styles.selectedText}>
-            You selected: <Text style={{ fontWeight: 'bold' }}>{selectedMood}</Text>
-          </Text>
+        {selectedMood && (
+            <>
+                <Text style={styles.selectedText}>
+                    You selected: <Text style={{ fontWeight: 'bold' }}>{selectedMood}</Text>
+                </Text>
 
-          <Text style={styles.selectedText}>
-            Would you like to journal about your feelings or get a simple, heartfelt message?
-          </Text>
+                <Text style={styles.selectedText}>
+                    Would you like to journal about your feelings or get a simple, heartfelt message?
+                </Text>
 
-          <View style={{ marginBottom: 10 }}>
-            <Button 
-              title="Journal"
-              onPress={() => alert('Journal feature coming soon!')}
-            />
-          </View>
+                <View style={{ marginBottom: 10 }}>
+                    <Button 
+                        title="Journal"
+                        onPress={() => alert('Journal feature coming soon!')}
+                    />
+                </View>
 
-          <View style={{ marginBottom: 10 }}>
-            <Button 
-              title="Heartfelt Message"
-              onPress={() => alert('Here is a heartfelt message for you!')}
-              color="#FF6347"
-            />
-          </View>
-        </>
-      )}
+                <View style={{ marginBottom: 10 }}>
+                    <Button 
+                        title="Heartfelt Message"
+                        onPress={() => navigation.navigate('Message')}
+                        color="#FF6347"
+                    />
+                </View>
+            </>
+        )}
     </ScrollView>
-  );
+);
 }
 
 const styles = StyleSheet.create({
